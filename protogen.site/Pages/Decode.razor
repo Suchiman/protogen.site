@@ -1,0 +1,25 @@
+﻿@page "/decode"
+@inherits DecodeModel
+@using W8lessLabs.Blazor.LocalFiles
+
+<h2>Online Protobuf Decoder.</h2>
+
+@if (Data != null)
+{
+    <div><DecodeBytes Model="new DecodeBytesModel(Data, Deep)" /></div>
+}
+<p>This tool will pull apart arbitrary protobuf data (without requiring a schema), displaying the hierarchical content.</p>
+<div>
+    <div><textarea rows="5" style="width:100%; max-width: unset" name="hex" type="text" placeholder="encoded hex" @bind="HexData"></textarea></div>
+    <div><button @onclick="DecodeHex">hex</button> <label for="hex_deep"><input id="hex_deep" type="checkbox" name="deep" value="true" @bind="Deep" /> recursively</label></div>
+</div>
+<hr />
+<div>
+    <div><textarea rows="5" style="width:100%;  max-width: unset" name="base64" type="text" placeholder="encoded base64" @bind="Base64Data"></textarea></div>
+    <div><button @onclick="DecodeBase64">base-64</button> <label for="base64_deep"><input id="base64_deep" type="checkbox" name="deep" value="true" @bind="Deep" /> recursively</label></div>
+</div>
+<hr />
+<div>
+    <FileSelect @ref="FileSelect"></FileSelect>
+    <button @onclick="DecodeFile">Pick file</button> <label for="file_deep"><input id="file_deep" type="checkbox" name="deep" value="true" @bind="Deep" /> recursively</label>
+</div>
